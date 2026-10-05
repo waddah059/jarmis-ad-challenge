@@ -1,0 +1,36 @@
+services:
+  jarmis:
+    build: ../service
+    restart: unless-stopped
+    environment:
+      TEAM_ID: ${TEAM_ID:-1}
+      CHECKER_TOKEN: ${CHECKER_TOKEN:-CHANGE-ME}
+      STATE_DB: /data/state.db
+      INTERNAL_HOST: internal-service
+    volumes:
+      - jarmis-data:/data
+    networks: [public, internal]
+    read_only: true
+    tmpfs: [/tmp]
+    security_opt: [no-new-privileges:true]
+    cap_drop: [ALL]
+  internal-service:
+    build:
+      context: ../service
+      dockerfile: Dockerfile.internal
+    restart: unless-stopped
+    environment:
+      TEAM_ID: "${TEAM_ID:-1}"
+      STATE_DB: /data/state.db
+    volumes: [jarmis-data:/data:ro]
+    expose: ["9000"]
+    networks: [internal]
+    read_only: true
+    tmpfs: [/tmp]
+    security_opt: [no-new-privileges:true]
+    cap_drop: [ALL]
+networks:
+  public: {}
+  internal: {internal: true}
+volumes:
+  jarmis-data: {}

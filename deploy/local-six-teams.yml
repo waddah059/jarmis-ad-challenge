@@ -1,0 +1,203 @@
+services:
+  team1:
+    build: ../service
+    restart: unless-stopped
+    environment:
+      TEAM_ID: "1"
+      CHECKER_TOKEN: "team1-checker-secret-change-me"
+      STATE_DB: /data/state.db
+      INTERNAL_HOST: internal1
+    volumes: [team1-data:/data]
+    ports: ["18001:8000"]
+    networks: [public1, internal1]
+    read_only: true
+    tmpfs: [/tmp]
+    security_opt: [no-new-privileges:true]
+    cap_drop: [ALL]
+  internal1:
+    build:
+      context: ../service
+      dockerfile: Dockerfile.internal
+    restart: unless-stopped
+    environment:
+      TEAM_ID: "1"
+      STATE_DB: /data/state.db
+    volumes: [team1-data:/data:ro]
+    expose: ["9000"]
+    networks: [internal1]
+    read_only: true
+    tmpfs: [/tmp]
+    security_opt: [no-new-privileges:true]
+    cap_drop: [ALL]
+  team2:
+    build: ../service
+    restart: unless-stopped
+    environment:
+      TEAM_ID: "2"
+      CHECKER_TOKEN: "team2-checker-secret-change-me"
+      STATE_DB: /data/state.db
+      INTERNAL_HOST: internal2
+    volumes: [team2-data:/data]
+    ports: ["18002:8000"]
+    networks: [public2, internal2]
+    read_only: true
+    tmpfs: [/tmp]
+    security_opt: [no-new-privileges:true]
+    cap_drop: [ALL]
+  internal2:
+    build:
+      context: ../service
+      dockerfile: Dockerfile.internal
+    restart: unless-stopped
+    environment:
+      TEAM_ID: "2"
+      STATE_DB: /data/state.db
+    volumes: [team2-data:/data:ro]
+    expose: ["9000"]
+    networks: [internal2]
+    read_only: true
+    tmpfs: [/tmp]
+    security_opt: [no-new-privileges:true]
+    cap_drop: [ALL]
+  team3:
+    build: ../service
+    restart: unless-stopped
+    environment:
+      TEAM_ID: "3"
+      CHECKER_TOKEN: "team3-checker-secret-change-me"
+      STATE_DB: /data/state.db
+      INTERNAL_HOST: internal3
+    volumes: [team3-data:/data]
+    ports: ["18003:8000"]
+    networks: [public3, internal3]
+    read_only: true
+    tmpfs: [/tmp]
+    security_opt: [no-new-privileges:true]
+    cap_drop: [ALL]
+  internal3:
+    build:
+      context: ../service
+      dockerfile: Dockerfile.internal
+    restart: unless-stopped
+    environment:
+      TEAM_ID: "3"
+      STATE_DB: /data/state.db
+    volumes: [team3-data:/data:ro]
+    expose: ["9000"]
+    networks: [internal3]
+    read_only: true
+    tmpfs: [/tmp]
+    security_opt: [no-new-privileges:true]
+    cap_drop: [ALL]
+  team4:
+    build: ../service
+    restart: unless-stopped
+    environment:
+      TEAM_ID: "4"
+      CHECKER_TOKEN: "team4-checker-secret-change-me"
+      STATE_DB: /data/state.db
+      INTERNAL_HOST: internal4
+    volumes: [team4-data:/data]
+    ports: ["18004:8000"]
+    networks: [public4, internal4]
+    read_only: true
+    tmpfs: [/tmp]
+    security_opt: [no-new-privileges:true]
+    cap_drop: [ALL]
+  internal4:
+    build:
+      context: ../service
+      dockerfile: Dockerfile.internal
+    restart: unless-stopped
+    environment:
+      TEAM_ID: "4"
+      STATE_DB: /data/state.db
+    volumes: [team4-data:/data:ro]
+    expose: ["9000"]
+    networks: [internal4]
+    read_only: true
+    tmpfs: [/tmp]
+    security_opt: [no-new-privileges:true]
+    cap_drop: [ALL]
+  team5:
+    build: ../service
+    restart: unless-stopped
+    environment:
+      TEAM_ID: "5"
+      CHECKER_TOKEN: "team5-checker-secret-change-me"
+      STATE_DB: /data/state.db
+      INTERNAL_HOST: internal5
+    volumes: [team5-data:/data]
+    ports: ["18005:8000"]
+    networks: [public5, internal5]
+    read_only: true
+    tmpfs: [/tmp]
+    security_opt: [no-new-privileges:true]
+    cap_drop: [ALL]
+  internal5:
+    build:
+      context: ../service
+      dockerfile: Dockerfile.internal
+    restart: unless-stopped
+    environment:
+      TEAM_ID: "5"
+      STATE_DB: /data/state.db
+    volumes: [team5-data:/data:ro]
+    expose: ["9000"]
+    networks: [internal5]
+    read_only: true
+    tmpfs: [/tmp]
+    security_opt: [no-new-privileges:true]
+    cap_drop: [ALL]
+  team6:
+    build: ../service
+    restart: unless-stopped
+    environment:
+      TEAM_ID: "6"
+      CHECKER_TOKEN: "team6-checker-secret-change-me"
+      STATE_DB: /data/state.db
+      INTERNAL_HOST: internal6
+    volumes: [team6-data:/data]
+    ports: ["18006:8000"]
+    networks: [public6, internal6]
+    read_only: true
+    tmpfs: [/tmp]
+    security_opt: [no-new-privileges:true]
+    cap_drop: [ALL]
+  internal6:
+    build:
+      context: ../service
+      dockerfile: Dockerfile.internal
+    restart: unless-stopped
+    environment:
+      TEAM_ID: "6"
+      STATE_DB: /data/state.db
+    volumes: [team6-data:/data:ro]
+    expose: ["9000"]
+    networks: [internal6]
+    read_only: true
+    tmpfs: [/tmp]
+    security_opt: [no-new-privileges:true]
+    cap_drop: [ALL]
+
+networks:
+  public1: {}
+  internal1: {internal: true}
+  public2: {}
+  internal2: {internal: true}
+  public3: {}
+  internal3: {internal: true}
+  public4: {}
+  internal4: {internal: true}
+  public5: {}
+  internal5: {internal: true}
+  public6: {}
+  internal6: {internal: true}
+
+volumes:
+  team1-data: {}
+  team2-data: {}
+  team3-data: {}
+  team4-data: {}
+  team5-data: {}
+  team6-data: {}

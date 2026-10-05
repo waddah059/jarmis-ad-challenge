@@ -1,0 +1,21 @@
+                         CTFBox GAME NETWORK
+                                |
+                  +-------------+-------------+
+                  |                           |
+             Team A vulnbox              Team B vulnbox
+                  |                           |
+          +-------+-------+           +-------+-------+
+          | public API    |           | public API    |
+          | FastAPI :8000 |           | FastAPI :8000 |
+          +-------+-------+           +-------+-------+
+                  | SSRF                      | SSRF
+                  v                           v
+          +---------------+           +---------------+
+          | internal      |           | internal      |
+          | service :9000 |           | service :9000 |
+          | flag store    |           | flag store    |
+          +---------------+           +---------------+
+
+Players can reach other teams' PUBLIC API only through the game network.
+The internal service is not directly routable from players.
+The checker/game server is a separate control plane.
